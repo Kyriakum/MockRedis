@@ -1,16 +1,13 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include <sys/socket.h>
-#include <iostream>
-#include <netinet/in.h>
-#include <unistd.h>
+#include <asio.hpp>
 
 #define BACKLOG 5
 
 namespace RedisServer {
 
-    int create_server_socket(int);
+    asio::ip::tcp::acceptor create_server_socket(asio::io_context&, int);
 }
 
 #endif //SERVER_HPP

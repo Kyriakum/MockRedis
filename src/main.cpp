@@ -3,11 +3,10 @@
 
 int main() {
 
-    int server_fd = RedisServer::create_server_socket(1111);
-    if (server_fd < 0) {
-        std::cerr << "Failed to create server socket" << std::endl;
-        return -1;
-    }
-    std::cout << "Server initiated! File descriptor: " << server_fd << std::endl;
+    asio::io_context context;
+
+    auto acceptor = RedisServer::create_server_socket(context, 1111);
+    std::cout << "Server initiated! File descriptor: " << acceptor.native_handle() << std::endl;
+
     return 0;
 }
