@@ -7,7 +7,7 @@ asio::ip::tcp::acceptor RedisServer::create_server_socket(asio::io_context& cont
     acceptor.open(endpoint.protocol());
     acceptor.set_option(asio::ip::tcp::acceptor::reuse_address(true));
     acceptor.bind(endpoint);
-    acceptor.listen();
+    acceptor.listen(BACKLOG);
 
     return acceptor;
 }
