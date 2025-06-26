@@ -9,7 +9,7 @@
 namespace RedisServer {
 
     class Server {
-        asio::ip::tcp::acceptor _acceptor;
+        asio::ip::tcp::acceptor m_acceptor;
 
     public:
         Server(asio::io_context&, short);
