@@ -1,13 +1,25 @@
 #include "Server.hpp"
 
-asio::ip::tcp::acceptor RedisServer::create_server_socket(asio::io_context& context, int port) {
-    asio::ip::tcp::acceptor acceptor(context);
-    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), port);
+RedisServer::Server::Server(asio::io_context& context, short port) : _acceptor(context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)) {
+    _acceptor.listen(BACKLOG);
+}
 
-    acceptor.open(endpoint.protocol());
-    acceptor.set_option(asio::ip::tcp::acceptor::reuse_address(true));
-    acceptor.bind(endpoint);
-    acceptor.listen(BACKLOG);
+void RedisServer::Server::start() {
+    async_accept_client();
+}
 
-    return acceptor;
+void RedisServer::Server::async_accept_client() {
+
+    LOG_INFO("Starting async_accept_client!");
+
+    _acceptor.async_accept([this](const asio::error_code ec, asio::ip::tcp::socket sock) {
+        if (!ec) {
+            // TODO create client sessions and handler for them
+        } else {
+            // Handle error
+        }
+        async_accept_client();
+    });
+
+    LOG_INFO("Server accepts clients!");
 }

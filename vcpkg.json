@@ -1,5 +1,7 @@
 {
   "dependencies": [
-    "asio"
+    "asio",
+    "spdlog",
+    "fmt"
   ]
 }

@@ -5,8 +5,10 @@ int main() {
 
     asio::io_context context;
 
-    auto acceptor = RedisServer::create_server_socket(context, 1111);
-    std::cout << "Server initiated! File descriptor: " << acceptor.native_handle() << std::endl;
+    RedisServer::Server server(context, 1111);
+
+    server.start();
+    context.run();
 
     return 0;
 }

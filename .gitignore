@@ -3,7 +3,7 @@
 cmake-build-debug/
 CMakeFiles/
 build/
-
+build/vcpkg_installed
 # CMake generated files
 
 cmake_install.cmake

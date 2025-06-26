@@ -2,12 +2,21 @@
 #define SERVER_HPP
 
 #include <asio.hpp>
+#include "Logging.h"
 
 #define BACKLOG 5
 
 namespace RedisServer {
 
-    asio::ip::tcp::acceptor create_server_socket(asio::io_context&, int);
+    class Server {
+        asio::ip::tcp::acceptor _acceptor;
+
+    public:
+        Server(asio::io_context&, short);
+
+        void async_accept_client();
+        void start();
+    };
 }
 
 #endif //SERVER_HPP
