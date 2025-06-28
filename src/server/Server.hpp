@@ -3,6 +3,7 @@
 
 #include <asio.hpp>
 #include "Logging.h"
+#include "ClientSession.hpp"
 
 #define BACKLOG 5
 

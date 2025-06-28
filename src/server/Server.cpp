@@ -14,9 +14,10 @@ void RedisServer::Server::async_accept_client() {
 
     m_acceptor.async_accept([this](const asio::error_code ec, asio::ip::tcp::socket sock) {
         if (!ec) {
-            // TODO create client sessions and handler for them
+            const auto session = std::make_shared<ClientSession>(std::move(sock));
+            session->start();
         } else {
-            // Handle error
+            LOG_INFO("Error occured: {}", ec.message());
         }
         async_accept_client();
     });
