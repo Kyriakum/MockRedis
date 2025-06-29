@@ -18,5 +18,5 @@ template<class T>
 }
 
 #define REGISTER_COMMAND(CommandType, CommandName) \
-    RedisCommand::AutoRegister<CommandType> register_##CommandType(CommandName);
+    inline RedisCommand::AutoRegister<CommandType> register_##CommandType(CommandName);
 #endif //AUTOREGISTER_HPP

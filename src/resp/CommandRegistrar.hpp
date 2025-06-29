@@ -8,7 +8,7 @@
 
 namespace RedisCommand {
     class CommandRegistrar {
-        inline static std::unordered_map<std::string, Command*> s_registry;
+        static std::unordered_map<std::string, Command*>& get_registry();
 
     public:
         CommandRegistrar() = delete;
