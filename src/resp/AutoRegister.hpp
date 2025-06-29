@@ -11,8 +11,8 @@ namespace RedisCommand {
 template<class T>
     class AutoRegister {
         public:
-            AutoRegister(const std::string& name) {
-                RedisCommand::CommandRegistrar::register_command(name, &T::getInstance());
+            explicit AutoRegister(const std::string& name) {
+                RedisCommand::CommandRegistrar::register_command(name, &T::get_instance());
             }
     };
 }

@@ -11,7 +11,7 @@ namespace RedisCommand {
             Singleton(const Singleton&) = delete;
             Singleton& operator=(const Singleton&) = delete;
 
-            static T& getInstance() {
+            static T& get_instance() {
                 static T instance;
                 return instance;
             }

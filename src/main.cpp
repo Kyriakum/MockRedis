@@ -1,18 +1,20 @@
 #include "Server.hpp"
-#include "MockCommandParser.hpp"
+#include "IParserProvider.hpp"
+#include "RespParserProvider.hpp"
 
 #include "PingCommand.hpp"
-
 int main() {
 
-    asio::io_context context;
+    try {
+        asio::io_context context;
 
-    RedisCommand::ICommandParser* parser = new RedisCommand::MockCommandParser();
+        Redis::IParserProvider* provider = new Redis::RespParserProvider();
+        RedisServer::Server server(context, 1111, provider);
 
-    RedisServer::Server server(context, 1111, parser);
-
-    server.start();
-    context.run();
-
+        server.start();
+        context.run();
+    } catch (const std::exception& e) {
+        LOG_ERROR(e.what());
+    }
     return 0;
 }

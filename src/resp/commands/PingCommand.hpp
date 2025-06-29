@@ -7,12 +7,13 @@
 
 namespace RedisCommand {
     class PingCommand final : public Command, public Singleton<PingCommand> {
-        friend class Singleton<PingCommand>;
-        PingCommand() : Singleton<PingCommand>(), Command() {};
+        friend class Singleton;
+        PingCommand() : Command(), Singleton() {};
 
         public:
-            void execute() override {
+            std::string execute(const std::vector<std::string>&) override {
                 LOG_INFO("Called PingCommand");
+                return "+PONG\r\n";
             }
     };
 

@@ -1,15 +1,15 @@
 #ifndef COMMAND_HPP
 #define COMMAND_HPP
 
-#include <vector>
 #include <string>
+#include <vector>
 #include "Logging.h"
 
 namespace RedisCommand {
     class Command {
         public:
             virtual ~Command() = default;
-            virtual void execute() = 0;
+            virtual std::string execute(const std::vector<std::string>&) = 0;
 
     };
 

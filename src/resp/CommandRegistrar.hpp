@@ -18,7 +18,7 @@ namespace RedisCommand {
         static void register_command(std::string, Command*);
 
         // TODO make optional
-        static Command* get_command(const std::string&);
+        static std::optional<Command*> get_command(const std::string&);
 
 
     };
