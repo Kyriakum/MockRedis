@@ -6,16 +6,15 @@
 #include "AutoRegister.hpp"
 
 namespace RedisCommand {
+    class PingCommand final : public Command, public Singleton<PingCommand> {
+        friend class Singleton<PingCommand>;
+        PingCommand() : Singleton<PingCommand>(), Command() {};
 
-class PingCommand : public Command, public Singleton<PingCommand> {
-      friend class Singleton<PingCommand>;
-      PingCommand() : Singleton<PingCommand>(), Command() {};
-
-  public:
-      void execute() override {
-          LOG_INFO("Called PingCommand");
-      }
-};
+        public:
+            void execute() override {
+                LOG_INFO("Called PingCommand");
+            }
+    };
 
 REGISTER_COMMAND(PingCommand, "PING");
 }

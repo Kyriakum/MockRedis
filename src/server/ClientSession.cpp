@@ -1,11 +1,11 @@
 #include "ClientSession.hpp"
 
-RedisServer::ClientSession::ClientSession(asio::ip::tcp::socket&& socket) : m_socket(std::move(socket)) {}
+RedisServer::ClientSession::ClientSession(asio::ip::tcp::socket&& socket, RedisCommand::ICommandParser* parser) : m_socket(std::move(socket)), m_parser(parser) {}
 
 void RedisServer::ClientSession::start() {
     auto self = shared_from_this();
 
-    asio::async_read_until(m_socket, m_buffer, "\r\n", [self](const std::error_code& ec, std::size_t bytes_transferred) {
+    async_read_until(m_socket, m_buffer, "\r\n", [self](const std::error_code& ec, std::size_t bytes_transferred) {
     if(!ec){
         std::istream input(&self->m_buffer);
         std::string line;
@@ -25,10 +25,10 @@ void RedisServer::ClientSession::parse_body() {}
 void RedisServer::ClientSession::send_response() {
     auto self = shared_from_this();
 
-    const std::string response = "+PONG!\r\n";
-    auto buffer = asio::buffer(response);
+    const std::string response = m_parser->parse_command("hello");
+    const auto buffer = asio::buffer(response);
 
-    asio::async_write(m_socket, buffer, [self](const std::error_code& ec, std::size_t bytes_transferred) {
+    async_write(m_socket, buffer, [self](const std::error_code& ec, std::size_t) {
     if(!ec) {
     	self->start();
     }
