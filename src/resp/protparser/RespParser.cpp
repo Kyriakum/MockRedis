@@ -28,6 +28,8 @@ int RedisProtocol::RespParser::parse_bulk_length(const std::string &data) {
 }
 
 void RedisProtocol::RespParser::parse_bulk(const std::string &data) {
-    m_command_args.push_back(data);
+    auto i = data;
+    std::erase(i, '\r');
+    m_command_args.push_back(i);
 }
 

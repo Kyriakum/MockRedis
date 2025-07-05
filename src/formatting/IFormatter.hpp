@@ -1,0 +1,4 @@
+#ifndef IFORMATTER_HPP
+#define IFORMATTER_HPP
+
+#endif //IFORMATTER_HPP

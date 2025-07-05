@@ -18,13 +18,22 @@ namespace RedisProtocol {
       ParseState m_state = ARR_LENGTH;
 
       void next_state() {
-          if (m_state == ARR_LENGTH) {
-              m_state = BULK_LENGTH;
+          switch (m_state) {
+              case ARR_LENGTH:
+                  m_state = BULK_LENGTH;
+                  break;
+              case BULK_LENGTH:
+                  m_state = BULK;
+                  break;
+              case BULK:
+                  m_state = BULK_LENGTH;
+                  break;
+              default:
+                  // TODO handle unexpected state
+                  break;
           }
-          else if (m_state == BULK_LENGTH) {
-              m_state = BULK;
-          } else m_state = BULK_LENGTH;
       }
+
       public:
           void parse_data(std::string& data) override;
           int parse_arr_length(const std::string& data);

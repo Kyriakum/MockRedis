@@ -9,7 +9,7 @@ It can also work as a *Message Broker*, but I will first be implementing the cac
 
 ### My Architecture
 
-I'm using **ASIO** for Network I/O which leverages the *Reactor Pattern* (using *epoll* on Linux).
+I'm using **ASIO** for Network I/O and async client handling which leverages the *Reactor Pattern* (using *epoll* on Linux).
 
 **Server Loop:**
 
